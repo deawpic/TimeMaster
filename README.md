@@ -7,7 +7,7 @@
 ## สารบัญ (Table of Contents)
 
 - [1. ภาพรวมและโหมดการทำงาน (Overview & Operational Modes)](#1-ภาพรวมและโหมดการทำงาน-overview--operational-modes)
-- [2. โครงสร้างไดเรกทอรี (Directory Structure)](#2-โครงสร้างไดเรกทอรี-directory-structure)
+- [2. สถาปัตยกรรมระบบและโครงสร้างไดเรกทอรี (System Architecture & Directory Structure)](#2-สถาปัตยกรรมระบบและโครงสร้างไดเรกทอรี-system-architecture--directory-structure)
 - [3. ฐานความรู้ 11 มิติของเวลา (The 11 Dimensions of Time)](#3-ฐานความรู้-11-มิติของเวลา-the-11-dimensions-of-time)
 - [4. แคตตาล็อก 15 สกิลเฉพาะทาง (Curated Skills Catalog)](#4-แคตตาล็อก-15-สกิลเฉพาะทาง-curated-skills-catalog)
 - [5. การทดสอบและการรันคำสั่ง (Verification & Testing)](#5-การทดสอบและการรันคำสั่ง-verification--testing)
@@ -19,33 +19,78 @@
 
 TimeMaster ขับเคลื่อนการทำงานผ่าน **3 โหมดหลัก** ตามโครงสร้างสถาปัตยกรรม:
 
-```text
-┌──────────────────────────────────────────────────────────────────────────┐
-│                           TIMEMASTER AGENT                               │
-└────────────────────────────────────┬─────────────────────────────────────┘
-                                     │
-       ┌─────────────────────────────┼─────────────────────────────┐
-       ▼                             ▼                             ▼
-┌───────────────┐           ┌─────────────────┐           ┌────────────────┐
-│ 1. EDUCATOR   │           │ 2. ARCHITECT    │           │ 3. SCIENTIFIC  │
-│   (ให้ความรู้)   │           │ (สถาปัตยกรรมระบบ) │           │     AUTHOR     │
-│ - First       │           │ - Kernel timing │           │ (งานวิชาการ)    │
-│   principles  │           │ - PTP/NTP/SyncE │           │ - โครงสร้าง    │
-│ - Progressive │           │ - TrueTime/HLC  │           │   IMRAD        │
-│   disclosure  │           │ - Hardware NIC  │           │ - สูตร LaTeX   │
-│ - สร้างโมเดล   │           │   1PPS / Holdover│          │ - Physical     │
-│   ความคิดที่ชัดเจน│          │ - ความปลอดภัย   │           │   Linter       │
-│               │           │   NTS / GNSS    │           │ - มาตรฐานสากล  │
-└───────────────┘           └─────────────────┘           └────────────────┘
+```mermaid
+graph TD
+    classDef main fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef edu fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f1f5f9;
+    classDef arch fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f1f5f9;
+    classDef sci fill:#0f172a,stroke:#a78bfa,stroke-width:2px,color:#f1f5f9;
+
+    TM["<b>TIMEMASTER AGENT</b><br/>สถาปัตยกรรมระบบเวลาสากลและมาตรวิทยาเวลาขั้นสูง"]:::main
+
+    TM --> EDU["<b>1. THE EDUCATOR</b><br/><i>(ผู้ถ่ายทอดความรู้เชิงหลักการ)</i><br/>• First principles ดาราศาสตร์และฟิสิกส์เวลา<br/>• Progressive disclosure อธิบายเป็นขั้นตอน<br/>• สร้าง Mental Model เชิงกายภาพที่ชัดเจน<br/>• นิยามวินาที SI, TAI, UT1, UTC, Leap Second"]:::edu
+
+    TM --> ARCH["<b>2. THE ARCHITECT</b><br/><i>(สถาปนิกและวิศวกรระบบเวลา)</i><br/>• Linux Kernel timing (adjtimex / PLL / FLL)<br/>• เครือข่าย PTP IEEE 1588-2019 / NTPv4 / SyncE<br/>• Distributed Clocks (Spanner TrueTime / HLC)<br/>• Hardware Timestamping 1PPS / Holdover Drift"]:::arch
+
+    TM --> SCI["<b>3. THE SCIENTIFIC AUTHOR</b><br/><i>(นักวิชาการและผู้ประพันธ์งานวิจัย)</i><br/>• มาตรฐานรายงานวิชาการโครงสร้าง IMRAD<br/>• พิสูจน์สมการสัมพัทธภาพและสถิติด้วย LaTeX<br/>• Physical Anti-AI Linter ตรวจสอบสำนวน 21 หมวด<br/>• ตรวจสอบการอ้างอิงสู่ BIPM, IETF RFC, IEEE"]:::sci
 ```
 
 1. **ผู้ถ่ายทอดความรู้เชิงหลักการ (The Educator)**: อธิบายกลไกของเวลาจากรากฐานฟิสิกส์และดาราศาสตร์ (First Principles) เช่น ความแตกต่างระหว่าง TAI, UT1, UTC เหตุผลเบื้องหลังการยกเลิก Leap Second ภายในปี 2035 และทฤษฎีสัมพัทธภาพของเวลา
 2. **สถาปนิกและวิศวกรระบบเวลาเชิงลึก (The Deep Technical Architect)**: วิเคราะห์และออกแบบระบบเวลาระดับนาโนวินาที ครอบคลุมเคอร์เนลลินุกซ์ (`adjtimex`, PLL/FLL), ฮาร์ดแวร์ Timestamping (1PPS PHY/MAC), โพรโทคอลเครือข่าย (PTP IEEE 1588-2019, SyncE, White Rabbit, NTPv4, NTS), การประเมิน Holdover ของ Oscillator (TCXO, OCXO, Rubidium, CSAC), และความสอดคล้องของระบบฐานข้อมูลกระจายศูนย์ (Google Spanner TrueTime, CockroachDB HLC)
-3. **นักวิชาการและผู้ประพันธ์บทความวิจัย (The Academic & Scientific Author)**: ร่างเอกสารวิชาการ, Whitepaper และคู่มือเทคนิคตามโครงสร้างสากล **IMRAD** พร้อมสูตรคณิตศาสตร์  LaTeX, แผนภาพ Mermaid ที่รองรับ Dark Mode และเนื้อหาที่ผ่านการตรวจสอบด้วย Physical Linter เพื่อขจัดสำนวน AI และป้องกันข้อมูลหลอน
+3. **นักวิชาการและผู้ประพันธ์บทความวิจัย (The Academic & Scientific Author)**: ร่างเอกสารวิชาการ, Whitepaper และคู่มือเทคนิคตามโครงสร้างสากล **IMRAD** พร้อมสูตรคณิตศาสตร์ $\text{\LaTeX}$, แผนภาพ Mermaid ที่รองรับ Dark Mode และเนื้อหาที่ผ่านการตรวจสอบด้วย Physical Linter เพื่อขจัดสำนวน AI และป้องกันข้อมูลหลอน
 
 ---
 
-## 2. โครงสร้างไดเรกทอรี (Directory Structure)
+## 2. สถาปัตยกรรมระบบและโครงสร้างไดเรกทอรี (System Architecture & Directory Structure)
+
+แผนผังสถาปัตยกรรมระบบ TimeMaster แสดงความสัมพันธ์ระหว่างชั้นอินเทอร์เฟซ, เอ็นจินหลัก, คลังความรู้รากฐาน, คลังสกิลเฉพาะทาง, และระบบตรวจสอบความถูกต้องทางกายภาพ:
+
+```mermaid
+graph TB
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef agent fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef kb fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+    classDef skill fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#f8fafc;
+    classDef test fill:#0f172a,stroke:#a78bfa,stroke-width:2px,color:#f8fafc;
+    classDef out fill:#0f172a,stroke:#fb923c,stroke-width:2px,color:#f8fafc;
+
+    subgraph ClientLayer ["Client & Interface Surface"]
+        User["ผู้ใช้งาน / วิศวกรเวลา"] --> Desktop["Antigravity Desktop 2.0 / IDE"]
+        Desktop --> Prompt["Prompts & Slash Commands<br/>(@ Mentions, /boost, /goal)"]
+    end
+
+    subgraph CoreLayer ["Agent Core Engine (AGENTS.md)"]
+        TM["<b>TimeMaster Agent</b><br/>Lead Chronometry Specialist"]:::agent
+        SOP["SOP 1: Scientific Writing<br/>SOP 2: Deep Technical Q&A<br/>SOP 3: Pedagogical Teaching"]:::agent
+    end
+
+    subgraph KBLayer ["คลังความรู้รากฐาน (kb/)"]
+        D11["11 Dimensions of Time<br/>(global_time_standard_11_dimensions.md)"]:::kb
+        Stack["Deep Engineering Handbook (540 KB)<br/>(Global_time_stack.md)"]:::kb
+    end
+
+    subgraph SkillLayer ["15 สกิลเฉพาะทาง (.agents/skills/)"]
+        SK_Space["Space & Relativistic Timing<br/>• celestial-time-mechanics<br/>• sympy-time-mechanics<br/>• oscillator-holdover-modeler"]:::skill
+        SK_Net["Network & Kernel Diagnostics<br/>• linux-timing-diagnostics<br/>• gnss-security-auditor<br/>• technical-tutorials"]:::skill
+        SK_Solar["Solar Ephemeris & Mechanics<br/>• noaacalc (Jean Meeus 12 Steps)"]:::skill
+        SK_Sci["Academic & Anti-AI Auditing<br/>• scientific-writing<br/>• avoid-ai-writing<br/>• verify-citations<br/>• papers-skill"]:::skill
+        SK_Arch["Architecture & Regulatory<br/>• docs-architect<br/>• code-documentation-code-explain<br/>• regulatory-timing-audit<br/>• mermaid-expert"]:::skill
+    end
+
+    subgraph VerifyLayer ["การตรวจสอบทางกายภาพและการส่งออก"]
+        Tests["Automated Test Suites<br/>(27 Unit Tests ใน tests/)"]:::test
+        Linter["Physical Anti-AI Linter<br/>(writing_linter.py)"]:::test
+        Reports["UTF-8 Reports & Artifacts<br/>(reports/ Directory)"]:::out
+    end
+
+    Prompt --> TM
+    TM --- SOP
+    TM --> KBLayer
+    TM --> SkillLayer
+    SkillLayer --> VerifyLayer
+```
+
+### โครงสร้างไฟล์และไดเรกทอรี (Directory Tree)
 
 ```text
 TimeMaster/
@@ -188,7 +233,7 @@ python3 .agents/skills/noaacalc/scripts/noaacalc.py --lat 13.8199 --lon 99.8722 
 
 ### 6.3 การใช้งานฟีเจอร์ระดับสูงใน Antigravity
 * **การเรนเดอร์คณิตศาสตร์และไดอะแกรม (LaTeX & Mermaid)**:
-  - รองรับการแสดงผลสมการคณิตศาสตร์ $\text{\LaTeX}$ ผ่าน KaTeX ทั้งแบบ Inline ($...$) และ Display ($$...$$)
+  - รองรับการแสดงผลสมการคณิตศาสตร์ LaTeX ผ่าน KaTeX ทั้งแบบ Inline ($...$) และ Display ($$...$$)
   - รองรับการแสดงผังเครือข่าย ลำดับการแลกเปลี่ยนแพ็กเก็ต PTP และ Stratum Hierarchy ผ่าน Mermaid แบบไดนามิก
 * **การจัดเก็บรายงานในไดเรกทอรี `reports/`**:
   - เมื่อสั่งให้บันทึกรายงาน ผลลัพธ์จะถูกบันทึกเป็นไฟล์ Markdown หรือ JSON ในโฟลเดอร์ [`reports/`](reports/) โดยใช้การเข้ารหัส UTF-8 ตามข้อกำหนดสากลเสมอ
