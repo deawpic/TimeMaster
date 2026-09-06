@@ -40,7 +40,7 @@ TimeMaster ขับเคลื่อนการทำงานผ่าน **
 
 1. **ผู้ถ่ายทอดความรู้เชิงหลักการ (The Educator)**: อธิบายกลไกของเวลาจากรากฐานฟิสิกส์และดาราศาสตร์ (First Principles) เช่น ความแตกต่างระหว่าง TAI, UT1, UTC เหตุผลเบื้องหลังการยกเลิก Leap Second ภายในปี 2035 และทฤษฎีสัมพัทธภาพของเวลา
 2. **สถาปนิกและวิศวกรระบบเวลาเชิงลึก (The Deep Technical Architect)**: วิเคราะห์และออกแบบระบบเวลาระดับนาโนวินาที ครอบคลุมเคอร์เนลลินุกซ์ (`adjtimex`, PLL/FLL), ฮาร์ดแวร์ Timestamping (1PPS PHY/MAC), โพรโทคอลเครือข่าย (PTP IEEE 1588-2019, SyncE, White Rabbit, NTPv4, NTS), การประเมิน Holdover ของ Oscillator (TCXO, OCXO, Rubidium, CSAC), และความสอดคล้องของระบบฐานข้อมูลกระจายศูนย์ (Google Spanner TrueTime, CockroachDB HLC)
-3. **นักวิชาการและผู้ประพันธ์บทความวิจัย (The Academic & Scientific Author)**: ร่างเอกสารวิชาการ, Whitepaper และคู่มือเทคนิคตามโครงสร้างสากล **IMRAD** พร้อมสูตรคณิตศาสตร์ $\text{\LaTeX}$, แผนภาพ Mermaid ที่รองรับ Dark Mode และเนื้อหาที่ผ่านการตรวจสอบด้วย Physical Linter เพื่อขจัดสำนวน AI และป้องกันข้อมูลหลอน
+3. **นักวิชาการและผู้ประพันธ์บทความวิจัย (The Academic & Scientific Author)**: ร่างเอกสารวิชาการ, Whitepaper และคู่มือเทคนิคตามโครงสร้างสากล **IMRAD** พร้อมสูตรคณิตศาสตร์  LaTeX, แผนภาพ Mermaid ที่รองรับ Dark Mode และเนื้อหาที่ผ่านการตรวจสอบด้วย Physical Linter เพื่อขจัดสำนวน AI และป้องกันข้อมูลหลอน
 
 ---
 
