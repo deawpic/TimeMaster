@@ -11,6 +11,7 @@
 - [3. ฐานความรู้ 11 มิติของเวลา (The 11 Dimensions of Time)](#3-ฐานความรู้-11-มิติของเวลา-the-11-dimensions-of-time)
 - [4. แคตตาล็อก 15 สกิลเฉพาะทาง (Curated Skills Catalog)](#4-แคตตาล็อก-15-สกิลเฉพาะทาง-curated-skills-catalog)
 - [5. การทดสอบและการรันคำสั่ง (Verification & Testing)](#5-การทดสอบและการรันคำสั่ง-verification--testing)
+- [6. คู่มือการใช้งานใน Antigravity Desktop (Antigravity Desktop Guide)](#6-คู่มือการใช้งานใน-antigravity-desktop-antigravity-desktop-guide)
 
 ---
 
@@ -144,3 +145,50 @@ python3 .agents/skills/oscillator-holdover-modeler/scripts/holdover_math.py --os
 # 5. คำนวณเวลาดวงอาทิตย์ขึ้น/ตก (NOAA Solar Calculator) พร้อมทดสอบ Ground-Truth Benchmark
 python3 .agents/skills/noaacalc/scripts/noaacalc.py --lat 13.8199 --lon 99.8722 --date 2022-03-27 --benchmark
 ```
+
+---
+
+## 6. คู่มือการใช้งานใน Antigravity Desktop (Antigravity Desktop Guide)
+
+**Antigravity Desktop** (ครอบคลุมทั้ง **Antigravity 2.0** และ **Antigravity IDE**) รองรับการโหลดโครงสร้างและสกิลของ TimeMaster โดยอัตโนมัติ ช่วยให้ผู้ใช้งานสามารถวิเคราะห์และโต้ตอบกับ Agent ได้อย่างเต็มขีดความสามารถ
+
+### 6.1 การเปิดใช้งาน Workspace ใน Antigravity
+
+1. เปิดโปรแกรม **Antigravity Desktop**
+2. เลือกเมนูด้านซ้าย **Projects** หรือไปที่เมนู `File > Create Project ...`
+3. เลือกโฟลเดอร์โปรเจกต์ `TimeMaster`
+4. Antigravity จะตรวจจับและโหลดองค์ประกอบหลักทันที:
+   - **กฎการทำงาน (Agent Rules)**: อ่านข้อกำหนดและ SOPs จาก [`AGENTS.md`](AGENTS.md)
+   - **คลังสกิลเฉพาะทาง (Active Skills)**: โหลดทั้ง 15 สกิลจากไดเรกทอรี [`.agents/skills/`](.agents/skills/)
+   - **ฐานความรู้รากฐาน (Knowledge Base Grounding)**: เชื่อมโยงเอกสาร 11 มิติในไดเรกทอรี [`kb/`](kb/)
+
+---
+
+### 6.2 ตัวอย่างการสั่งงานผ่าน Chat Canvas ตามโหมดการทำงาน
+
+สามารถพิมพ์คำถามหรือข้อสั่งการในช่องสนทนา (Chat Canvas) ได้ตามบริบทงาน:
+
+#### โหมดที่ 1: การเรียนรู้และทำความเข้าใจหลักการ (The Educator)
+* *"อธิบายความแตกต่างระหว่าง TAI, UT1 และ UTC พร้อมเหตุผลที่ประชาคมมาตรวิทยาจะยกเลิก Leap Second ภายในปี 2035"*
+* *"เพราะเหตุใดนาฬิกาบนดาวเทียม GPS จึงเดินเร็วกว่านาฬิกาบนพื้นโลกวันละ 38 ไมโครวินาที อธิบายผ่านทฤษฎีสัมพัทธภาพพิเศษและทั่วไป"*
+
+#### โหมดที่ 2: สถาปัตยกรรมและวิศวกรรมระบบเวลา (The Deep Technical Architect)
+* *"ออกแบบพิมพ์เขียวระบบเวลา IEEE 1588-2019 PTP บน Linux ด้วย ptp4l และ phc2sys โดยใช้การ์ดแลนที่มี 1PPS Hardware Timestamping"*
+* *"คำนวณงบประมาณเวลาสำรอง (Holdover Budget) ของ Double-Oven OCXO เมื่อสัญญาณดาวเทียมขาดหาย เพื่อให้เป็นไปตามข้อกำหนด MiFID II RTS 25 (100 µs)"*
+
+#### โหมดที่ 3: การประพันธ์งานวิชาการและรายงานวิจัย (The Scientific Author)
+* *"ร่างบทความวิชาการโครงสร้าง IMRAD ในหัวข้อ 'Coordinated Lunar Time (LTC) Architecture' พร้อมสูตร LaTeX และแผนภาพ Mermaid"*
+* *"ตรวจสอบและตัดคำฟุ่มเฟือยหรือสำนวน AI ในรายงาน พร้อมตรวจสอบความถูกต้องของเลขอ้างอิง RFC และ IEEE"*
+
+#### การคำนวณตำแหน่งดวงอาทิตย์ (NOAA Solar Mechanics)
+* *"คำนวณเวลาดวงอาทิตย์ขึ้น ตก เที่ยงวันจริง และแสงสนธยา 3 ระดับ ณ อำเภอบ้านโป่ง จังหวัดราชบุรี ในวันที่ 27 มีนาคม 2565"*
+* *"ขอตารางเวลาดวงอาทิตย์ตลอดทั้งเดือนนี้ที่กรุงเทพมหานคร พร้อมค่าสมการเวลา (EoT)"*
+
+---
+
+### 6.3 การใช้งานฟีเจอร์ระดับสูงใน Antigravity
+* **การเรนเดอร์คณิตศาสตร์และไดอะแกรม (LaTeX & Mermaid)**:
+  - รองรับการแสดงผลสมการคณิตศาสตร์ $\text{\LaTeX}$ ผ่าน KaTeX ทั้งแบบ Inline ($...$) และ Display ($$...$$)
+  - รองรับการแสดงผังเครือข่าย ลำดับการแลกเปลี่ยนแพ็กเก็ต PTP และ Stratum Hierarchy ผ่าน Mermaid แบบไดนามิก
+* **การจัดเก็บรายงานในไดเรกทอรี `reports/`**:
+  - เมื่อสั่งให้บันทึกรายงาน ผลลัพธ์จะถูกบันทึกเป็นไฟล์ Markdown หรือ JSON ในโฟลเดอร์ [`reports/`](reports/) โดยใช้การเข้ารหัส UTF-8 ตามข้อกำหนดสากลเสมอ
