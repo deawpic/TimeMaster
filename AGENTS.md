@@ -66,7 +66,7 @@ The harness equips 15 specialized skills tailored for the TimeMaster agent locat
 .agents/skills/
 ├── scientific-writing/              # Academic papers, IMRAD structure, LaTeX math, journal guidelines
 ├── avoid-ai-writing/                # Eliminates 21 AI writing tells for human-grade scholarly prose
-├── mermaid-expert/                  # Time architecture, Stratum trees, PTP 4-timestamp sequence diagrams
+├── mermaid-expert/                  # Time architecture, Stratum trees, PTP sequence diagrams, syntax validator (syntax_validator.py)
 ├── papers-skill/                    # Semantic Scholar & arXiv paper search, citation graphs, PDF text extraction
 ├── verify-citations/                # Verifies citations against RFCs, BIPM Circular T, IEEE specs, and papers
 ├── sympy-time-mechanics/            # Symbolic math engine for relativity, Allan variance, and packet calculus
@@ -91,7 +91,7 @@ The harness equips 15 specialized skills tailored for the TimeMaster agent locat
 | **Answer In-Depth Technical / Protocol Q&A**| `code-documentation-code-explain` | `sympy-time-mechanics` | Rigorous explanation of kernel timing (`adjtimex`), NTP/PTP packet math, or holdover budgets. |
 | **Calculate Relativistic / Time Math** | `sympy-time-mechanics` | `scientific-writing` | Exact symbolic/numerical computation of dilation ($v, \Phi$), Allan deviation, or Y2038 timestamps. |
 | **Write Technical Tutorial / Configuration Guide**| `technical-tutorials` | `avoid-ai-writing` | Step-by-step reproducible guide for Chrony, PTPv2 `ptp4l`, Linux PHC, or NTS server setup. |
-| **Generate Technical Diagrams** | `mermaid-expert` | — | Stratum hierarchy, PTP 4-packet exchange, BIPM metrological loop, TrueTime intervals. |
+| **Generate & Validate Technical Diagrams** | `mermaid-expert` | — | Stratum hierarchy, PTP packets, TrueTime intervals, and syntax validation (`syntax_validator.py`). |
 | **Verify Citations & Claims** | `verify-citations` | `papers-skill` | Fact-checking against BIPM Circular T, RFC 5905, RFC 8915, IEEE 1588-2019, and DOIs. |
 | **Audit Regulatory Time & Traceability** | `regulatory-timing-audit` | `verify-citations` | MiFID II RTS 25 / FINRA CAT audit dossier, divergence checks, UTF-8 report in `reports/`. |
 | **Diagnose Linux Kernel & Network Clocks** | `linux-timing-diagnostics` | `code-documentation-code-explain` | Analysis of `ethtool -T`, PHC mappings, PTP servo convergence, and `adjtimex` state. |
@@ -146,6 +146,7 @@ The harness equips 15 specialized skills tailored for the TimeMaster agent locat
 6. **Strict Visual & Tabular Standard (Mermaid & Markdown Tables Only — No ASCII Art/Tables)**:
    - In all agent outputs (both conversational responses in chat and persisted files/reports in `reports/` or artifacts), every diagram, process flow, and architecture layout MUST be rendered using **Mermaid** blocks (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`, `erDiagram`, etc.). Under no circumstances should ASCII diagrams, Unicode box-drawing characters, or plain-text schematics be generated.
    - All tabular data, parameter comparisons, and specifications MUST strictly use standard **Markdown tables** (`| Column 1 | Column 2 |`). Monospaced text grids, ASCII alignment spaces, and character boxes are strictly prohibited.
+   - **Syntax Integrity Enforcement**: All generated Mermaid diagrams and Markdown tables must strictly comply with syntax standards (e.g., node labels with special characters quoted `id["Label (extra)"]`, balanced subgraphs/blocks, and aligned table columns). Enforced programmatically via `syntax_validator.py` and `tests/test_syntax_integrity.py`.
 7. **Ephemeral Delivery for PDF Conversion Recommendations (Chat-Only Invariant)**:
    - All guidance, recommendations, installation instructions, and user tips for external/supplementary software (e.g., how users can view or print Markdown to PDF via Markdown viewers, VS Code extensions, Typora, or browser `Ctrl+P`, or text-extraction tools like `pdftotext`/`pdfplumber`) MUST be displayed **exclusively within the chat interface**.
    - Under no circumstances should PDF conversion software recommendations or auxiliary tool guides be written or saved into persistent files in the workspace (including `reports/`, documentation files, or workspace artifacts).

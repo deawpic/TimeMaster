@@ -132,4 +132,36 @@ sequenceDiagram
 
 - **Dark Mode Friendly**: Use dark node fills (`#2d333b`), crisp borders (`#58a6ff`, `#3fb950`, `#f0883e`), and high-contrast text (`#e6edf3`).
 - **Autonumber in Sequence Diagrams**: Always enable `autonumber` in sequence diagrams for clear reference in academic text.
-- **Escape Characters**: Avoid unescaped angle brackets or symbols in node labels.
+- **Escape Characters & Quoting**: Always wrap node labels containing special characters (parentheses, brackets, colons, arithmetic symbols) in double quotes: `id["Label (extra)"]`.
+- **Supported Diagram Declarations**: Strictly use supported diagram keywords: `flowchart`, `graph`, `sequenceDiagram`, `stateDiagram-v2`, `classDiagram`, `erDiagram`, `xychart-beta`.
+
+---
+
+## 4. Programmatic Syntax Validator Engine
+
+The skill includes a dedicated syntax and structural validation CLI tool located at:
+`scripts/syntax_validator.py`
+
+### Capabilities:
+1. **Mermaid Block Verification**:
+   - Validates diagram type declarations and unsupported formats.
+   - Detects unclosed blocks (`subgraph` ... `end`, `loop` / `alt` / `opt` ... `end`, composite state `{ }`).
+   - Detects unquoted special characters in node labels (`()`, `[]`, `{}`) that cause Mermaid parser crashes.
+   - Audits edge labels for unclosed pipes (`|`) and malformed arrow heads (`-->-`).
+2. **Markdown Table Integrity**:
+   - Audits column counts across table header, separator row (`|:---|`), and data rows.
+   - Flags missing pipes or column count mismatches.
+3. **Code Fence Integrity**:
+   - Ensures all code fences (```) are properly matched and closed.
+
+### Usage:
+```bash
+# Scan entire workspace or a directory:
+python3 .agents/skills/mermaid-expert/scripts/syntax_validator.py --path . --strict
+
+# Scan a single document:
+python3 .agents/skills/mermaid-expert/scripts/syntax_validator.py --path reports/timing_audit.md
+
+# Output as JSON:
+python3 .agents/skills/mermaid-expert/scripts/syntax_validator.py --path kb/ --json
+```

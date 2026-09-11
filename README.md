@@ -102,11 +102,10 @@ TimeMaster/
 │   └── Global_time_stack.md                 # คู่มือวิศวกรรมระบบเวลาเชิงลึกฉบับสมบูรณ์ (540 KB)
 ├── reports/                                 # ไดเรกทอรีจัดเก็บรายงานและผลการตรวจประเมิน (เข้ารหัส UTF-8)
 ├── .agents/
-│   ├── AGENTS.md                            # ไฟล์ Mirror สเปกระบบ (ตรงกับ Root 100%)
 │   └── skills/                              # คลัง 15 สกิลเฉพาะทาง (Curated Skills)
 │       ├── scientific-writing/              # งานประพันธ์วิชาการ โครงสร้าง IMRAD และมาตรฐาน Peer-Review
 │       ├── avoid-ai-writing/                # ขจัด 21 AI Clichés (พร้อม CLI Linter: writing_linter.py)
-│       ├── mermaid-expert/                  # แผนภาพสถาปัตยกรรมเวลา โครงสร้าง Stratum และโพรโทคอล PTP
+│       ├── mermaid-expert/                  # แผนภาพสถาปัตยกรรมเวลา และ Linter ตรวจ Syntax (syntax_validator.py)
 │       ├── papers-skill/                    # ค้นคว้าและดึงเปเปอร์วิจัย (Semantic Scholar, arXiv, PDF)
 │       ├── verify-citations/                # ตรวจสอบมาตรฐานสากลและเอกสารอ้างอิง (BIPM, RFC, IEEE)
 │       ├── sympy-time-mechanics/            # เอ็นจินคำนวณสัมพัทธภาพและมาตรวิทยาเวลา (time_math.py)
@@ -121,6 +120,7 @@ TimeMaster/
 │       └── noaacalc/                        # คำนวณดวงอาทิตย์ขึ้น/ตก เที่ยงวันจริง แสงสนธยา (noaacalc.py)
 └── tests/                                   # ชุดทดสอบอัตโนมัติ (Automated Test Suites)
     ├── test_harness_integrity.py            # ตรวจสอบความสมบูรณ์ของ Harness, สกิล และ KB
+    ├── test_syntax_integrity.py             # ทดสอบ Syntax Linter ของ Mermaid และ Markdown ครอบคลุมทั้งโปรเจกต์
     ├── test_time_calculations.py            # ทดสอบความถูกต้องของสมการสัมพัทธภาพโลกและแพ็กเก็ต NTP
     ├── test_holdover_calculations.py        # ทดสอบโมเดลการเสื่อมสภาพของ Oscillator และ Holdover
     ├── test_writing_linter.py               # ทดสอบระบบดักจับสำนวน AI และการตรวจสอบการอ้างอิง

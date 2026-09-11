@@ -32,12 +32,11 @@ class TestHarnessIntegrity(unittest.TestCase):
     def test_root_files_exist(self):
         """Verify primary harness documentation and agent specifications exist."""
         self.assertTrue((TIMEMASTER_ROOT / "AGENTS.md").exists(), "Root AGENTS.md missing")
-        self.assertTrue((TIMEMASTER_ROOT / ".agents" / "AGENTS.md").exists(), ".agents/AGENTS.md mirror missing")
+        self.assertFalse((TIMEMASTER_ROOT / ".agents" / "AGENTS.md").exists(), ".agents/AGENTS.md mirror should not exist (prevents token bloat)")
         self.assertTrue((TIMEMASTER_ROOT / "README.md").exists(), "README.md missing")
 
         agents_root = (TIMEMASTER_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        agents_mirror = (TIMEMASTER_ROOT / ".agents" / "AGENTS.md").read_text(encoding="utf-8")
-        self.assertEqual(agents_root, agents_mirror, "AGENTS.md and .agents/AGENTS.md must be identical mirrors")
+        self.assertGreater(len(agents_root), 1000, "Root AGENTS.md content suspiciously small")
 
     def test_knowledge_base_files(self):
         """Verify that both foundational knowledge base documents exist and are populated."""
@@ -78,6 +77,7 @@ class TestHarnessIntegrity(unittest.TestCase):
         writing_linter_script = TIMEMASTER_ROOT / ".agents" / "skills" / "avoid-ai-writing" / "scripts" / "writing_linter.py"
         celestial_time_script = TIMEMASTER_ROOT / ".agents" / "skills" / "celestial-time-mechanics" / "scripts" / "celestial_time.py"
         noaacalc_script = TIMEMASTER_ROOT / ".agents" / "skills" / "noaacalc" / "scripts" / "noaacalc.py"
+        syntax_validator_script = TIMEMASTER_ROOT / ".agents" / "skills" / "mermaid-expert" / "scripts" / "syntax_validator.py"
 
         self.assertTrue(papers_script.exists(), "papers.py script missing")
         self.assertTrue(time_math_script.exists(), "time_math.py script missing")
@@ -85,6 +85,7 @@ class TestHarnessIntegrity(unittest.TestCase):
         self.assertTrue(writing_linter_script.exists(), "writing_linter.py script missing")
         self.assertTrue(celestial_time_script.exists(), "celestial_time.py script missing")
         self.assertTrue(noaacalc_script.exists(), "noaacalc.py script missing")
+        self.assertTrue(syntax_validator_script.exists(), "syntax_validator.py script missing")
 
 
 if __name__ == "__main__":
